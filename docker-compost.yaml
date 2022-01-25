@@ -1,0 +1,45 @@
+version: "3"
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - dock_net
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  node:
+    depends_on:
+      - mongo
+    container_name: nodeServer
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    networks:
+      - dock_net
+    environment:
+      MONGODB_URL: 'mongodb+srv://cowine:1234@cowine.voxxr.mongodb.net/cowine_db?retryWrites=true&w=majority'
+
+  flask:
+    depends_on:
+      - mongo
+    container_name: flaskServer
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - dock_net
+    
+    
+
+networks:
+  dock_net:
+    driver: bridge
