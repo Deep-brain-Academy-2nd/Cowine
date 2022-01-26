@@ -172,13 +172,13 @@ const Data = [
 
 function MainPage() {
   // // 랜딩페이지에 들어오자마자 get request를 서버로 보냄. endingpoint는 /api/hello
-  // useEffect(() => {
-  //   // endpoint를 서버로 보냄.
-  //   axios
-  //     .get("/api/hello")
-  //     // 응답이오면 console창에서 보여줍니다.
-  //     .then((response) => console.log(response.data));
-  // }, []);
+  useEffect(() => {
+    // endpoint를 서버로 보냄.
+    axios
+      .get("/index")
+      // 응답이오면 console창에서 보여줍니다.
+      .then((response) => console.log(response.data));
+  }, []);
 
   return (
     <>
